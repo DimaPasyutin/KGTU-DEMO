@@ -56,7 +56,7 @@ public class NewsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         // Интерфейс, необходимый для подгрузки постов, но доходя до определенного элемента
-        // начинается бесконечная инкрементация переменной con и данные не подгружаются
+        // начинается бесконечный вызов onReachEnd, так как список в recyclerView перестает обновляться
         newsAdapter.setOnReachEndListener(new NewsAdapter.OnReachEndListener() {
             @Override
             public void onReachEnd(long count) {

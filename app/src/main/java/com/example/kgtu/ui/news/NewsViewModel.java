@@ -43,8 +43,8 @@ public class NewsViewModel extends AndroidViewModel {
         reservPosts = new MutableLiveData<>();
     }
 
-    // Загружаю данные с помощью API в фоновом потоке и результат выдаю в UI поток,
-    // а при сбое пытаюсь забрать данные из базы данных(пока не получается)
+    // Загружает данные с помощью API в фоновом потоке и результат выдаёт в UI поток,
+    // а при сбое пытается забрать данные из базы данных(последнее пока не получается)
     public void loadData(long ownerId, long count) {
         Log.i("PostLoad", "done");
         ApiNews apiNews = ApiNews.getInstance();
