@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">KGTU</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">КГТУ</string>
+    <string name="action_settings1">Другое</string>
+
+    <string name="menu_news">Новости</string>
+    <string name="menu_navigator">Навигатор</string>
+    <string name="menu_podcasts">Подкасты</string>
+    <string name="menu_table_time">Расписание</string>
+</resources>
