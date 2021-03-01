@@ -2,8 +2,8 @@
     <string name="app_name">KGTU</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_title">До начала сессии осталось</string>
+    <string name="nav_header_subtitle">30 дней</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">КГТУ</string>
     <string name="action_settings1">Другое</string>

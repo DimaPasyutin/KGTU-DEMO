@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "266274616402",
+    "project_id": "kgtufirebase",
+    "storage_bucket": "kgtufirebase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:266274616402:android:62ab343a0e52c83abe5b8b",
+        "android_client_info": {
+          "package_name": "com.example.kgtu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "266274616402-3084p7mpr77n5qdn07pigb3lcobc716b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1LFWNX_EPgnTL6TwmQUgs1Af4fFkFPOQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "266274616402-3084p7mpr77n5qdn07pigb3lcobc716b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -57,7 +57,7 @@ public class NewsViewModel extends AndroidViewModel {
                     @Override
                     public void accept(Example example) throws Exception {
                         if (example != null) {
-                            Log.i("PostDone", "Done" + example.getResponse().getItems().toString());
+                            Log.i("PostDone", "Done" + example.getResponse().getItems().size());
                             items = example.getResponse().getItems();
                             convertListToPosts(items);
                         }
@@ -122,7 +122,6 @@ public class NewsViewModel extends AndroidViewModel {
                     }
                 }
                 if(id != 0 && text != null && photo.size() > 0) {
-                    Log.i("PostInsert", "done" + date);
 //                                        database.postDao().insertPost(new Post(id, text, photo));
                     result.add(new Post(id, text, date,  photo));
                 }
