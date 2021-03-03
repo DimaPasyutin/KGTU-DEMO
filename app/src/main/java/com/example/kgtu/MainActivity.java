@@ -1,16 +1,22 @@
 package com.example.kgtu;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.View;
+import android.util.Log;
 import android.view.Menu;
+import android.widget.TextView;
 
-import com.example.kgtu.ui.news.NewsFragment;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import com.example.kgtu.data.pojo.DaysBeforeExams;
+import com.example.kgtu.data.pojo.Example;
+import com.example.kgtu.firebase.MyFirebaseDatabase;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
+import androidx.annotation.Nullable;
+import androidx.lifecycle.Observer;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -19,9 +25,18 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import rx.Observable;
+import rx.Scheduler;
+import rx.schedulers.Schedulers;
+
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
+    TextView textViewDate;
+    MyFirebaseDatabase myFirebaseDatabase;
+    String date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +55,21 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        //Firebase
+        textViewDate = findViewById(R.id.textViewDayBeforeExams);
+        myFirebaseDatabase = new MyFirebaseDatabase(getApplication());
+//        myFirebaseDatabase.LoadDate();
+        myFirebaseDatabase.getDaysBeforeExamsMutableLiveData().observe(this, new Observer<DaysBeforeExams>() {
+            @Override
+            public void onChanged(DaysBeforeExams daysBeforeExams) {
+                if(daysBeforeExams != null) {
+                    textViewDate.setText(daysBeforeExams.getWish());
+                }
+            }
+        });
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

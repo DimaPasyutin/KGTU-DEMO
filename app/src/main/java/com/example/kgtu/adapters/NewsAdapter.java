@@ -68,7 +68,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
     @Override
     public void onBindViewHolder(@NonNull NewsViewHolder holder, int position) {
 
-        if (posts.size() >= 5 && position == posts.size() - 3 && onReachEndListener != null) {
+        if (posts.size() >= 1 && position == posts.size() - 5 && onReachEndListener != null) {
             onReachEndListener.onReachEnd(++counter);
         }
 
