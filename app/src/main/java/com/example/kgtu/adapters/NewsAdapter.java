@@ -3,23 +3,19 @@ package com.example.kgtu.adapters;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.HorizontalScrollView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.kgtu.R;
 import com.example.kgtu.data.pojo.Post;
-import com.example.kgtu.ui.news.NewsFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,8 +69,29 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         }
 
         Post post = posts.get(position);
-        holder.textViewArticle.setText(post.getText());
+        if(post.getText().length() > 50) {
+            holder.textViewArticle.setLines(5);
+            holder.textViewArticle.setText(post.getText());
+            holder.imageViewMore.setVisibility(View.VISIBLE);
+        }
+        holder.textViewArticle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                holder.textViewArticle.setMaxLines(100);
+                holder.imageViewMore.setVisibility(View.GONE);
+            }
+        });
+
+        holder.imageViewMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                holder.textViewArticle.setMaxLines(100);
+                holder.imageViewMore.setVisibility(View.GONE);
+            }
+        });
+
         holder.textViewDate.setText(post.getDate());
+
         setItemRecycler(holder.viewPager2Photos, post.getPhoto1280());
         if(post.getPhoto1280().size() > 1) {
             holder.setDots(new TextView[post.getPhoto1280().size()]);
@@ -99,6 +116,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         } else if (post.getPhoto1280().isEmpty()){
             holder.layout.setVisibility(LinearLayout.INVISIBLE);
         }
+
     }
 
     @Override
@@ -113,6 +131,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         ViewPager2 viewPager2Photos;
         TextView[] dots;
         LinearLayout layout;
+        ImageView imageViewMore;
 
         public NewsViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -120,6 +139,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
             textViewArticle = itemView.findViewById(R.id.textViewArticle);
             viewPager2Photos = itemView.findViewById(R.id.image_container);
             layout = itemView.findViewById(R.id.dots_container);
+            imageViewMore = itemView.findViewById(R.id.imageViewMore);
         }
 
         public void setDots(TextView[] dots) {
