@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onChanged(DaysBeforeExams daysBeforeExams) {
                 if(daysBeforeExams != null) {
-                    textViewDate.setText(daysBeforeExams.getWish());
+//                    textViewDate.setText(daysBeforeExams.getWish());
                 }
             }
         });

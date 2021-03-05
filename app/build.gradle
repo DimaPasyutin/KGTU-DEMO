@@ -2,6 +2,8 @@ plugins {
     id 'com.android.application'
 }
 
+apply plugin: 'com.google.gms.google-services'
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
@@ -42,6 +44,7 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
+    // RxJava, Retrofit, Gson
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
     implementation 'io.reactivex.rxjava2:rxjava:2.2.9'
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
@@ -52,18 +55,19 @@ dependencies {
 
     implementation "androidx.multidex:multidex:2.0.1"
 
+    //Room
+    implementation "androidx.room:room-runtime:2.2.6"
+    annotationProcessor "androidx.room:room-compiler:2.2.6"
 
-
-    def room_version = "2.2.6"
-
-    implementation "androidx.room:room-runtime:$room_version"
-    annotationProcessor "androidx.room:room-compiler:$room_version"
-
+    // Picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
 
-
+    // ViewPager2
     implementation "androidx.viewpager2:viewpager2:1.0.0"
-    implementation 'com.squareup.picasso:picasso:2.71828'
+
+    // Firebase
+    implementation platform('com.google.firebase:firebase-bom:26.6.0')
+    implementation 'com.google.firebase:firebase-firestore'
 
     //LinkBuilder
     implementation 'com.klinkerapps:link_builder:2.0.5'
