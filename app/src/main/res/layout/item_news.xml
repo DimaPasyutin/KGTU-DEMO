@@ -83,18 +83,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/dots_container" />
 
-        <ImageView
-            android:id="@+id/imageViewMore"
-            android:layout_width="match_parent"
-            android:layout_height="8dp"
-            android:visibility="gone"
-            android:adjustViewBounds="true"
-            app:srcCompat="@drawable/more"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textViewArticle" />
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

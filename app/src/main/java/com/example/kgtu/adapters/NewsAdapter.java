@@ -2,6 +2,7 @@ package com.example.kgtu.adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,10 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.kgtu.R;
 import com.example.kgtu.data.pojo.Post;
+import com.klinker.android.link_builder.Link;
+import com.klinker.android.link_builder.LinkBuilder;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,35 +69,28 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
     @Override
     public void onBindViewHolder(@NonNull NewsViewHolder holder, int position) {
 
+        Post post = posts.get(position);
+
+        // Обновление списка постов
         if (posts.size() >= 5 && position == posts.size() - 3 && onReachEndListener != null) {
             onReachEndListener.onReachEnd(++counter);
         }
 
-        Post post = posts.get(position);
-        if(post.getText().length() > 50) {
-            holder.textViewArticle.setLines(5);
+        //Работа с размером текста
+        if(post.getText().length() > 150) {
+            holder.textViewArticle.setText(post.getPreview());
+            LinkBuilder.on(holder.textViewArticle).addLink(post.getLink(holder.textViewArticle)).build();
+        } else {
             holder.textViewArticle.setText(post.getText());
-            holder.imageViewMore.setVisibility(View.VISIBLE);
         }
-        holder.textViewArticle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                holder.textViewArticle.setMaxLines(100);
-                holder.imageViewMore.setVisibility(View.GONE);
-            }
-        });
 
-        holder.imageViewMore.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                holder.textViewArticle.setMaxLines(100);
-                holder.imageViewMore.setVisibility(View.GONE);
-            }
-        });
-
+        // Устанавливаем дату
         holder.textViewDate.setText(post.getDate());
 
+        // Устанавливаем ViewPager
         setItemRecycler(holder.viewPager2Photos, post.getPhoto1280());
+
+        // Создаю метки переключения между фото
         if(post.getPhoto1280().size() > 1) {
             holder.setDots(new TextView[post.getPhoto1280().size()]);
             holder.setIndicators();
@@ -131,7 +129,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         ViewPager2 viewPager2Photos;
         TextView[] dots;
         LinearLayout layout;
-        ImageView imageViewMore;
 
         public NewsViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -139,7 +136,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
             textViewArticle = itemView.findViewById(R.id.textViewArticle);
             viewPager2Photos = itemView.findViewById(R.id.image_container);
             layout = itemView.findViewById(R.id.dots_container);
-            imageViewMore = itemView.findViewById(R.id.imageViewMore);
         }
 
         public void setDots(TextView[] dots) {

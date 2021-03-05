@@ -109,7 +109,7 @@ public class NewsViewModel extends AndroidViewModel {
                     id = item.getId();
                     text = item.getText();
                     long unix = (long) item.getDate();
-                    date= new java.text.SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new java.util.Date (unix*1000));
+                    date= new java.text.SimpleDateFormat("dd.MM.yyyy").format(new java.util.Date (unix*1000));
 
 
                     List<Attachment> attachments = item.getAttachments();

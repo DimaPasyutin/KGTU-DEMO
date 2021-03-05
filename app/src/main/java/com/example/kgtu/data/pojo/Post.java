@@ -1,6 +1,9 @@
 package com.example.kgtu.data.pojo;
 
+import android.graphics.Color;
 import android.util.Log;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.room.Entity;
 import androidx.room.Ignore;
@@ -9,7 +12,11 @@ import androidx.room.TypeConverters;
 
 import com.example.kgtu.data.converters.ConverterAttachment;
 import com.example.kgtu.data.converters.ConverterPhotos;
+import com.klinker.android.link_builder.Link;
+import com.klinker.android.link_builder.LinkBuilder;
 import com.squareup.picasso.Picasso;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -38,6 +45,27 @@ public class Post {
         this.text = text;
         this.date = date;
         this.photo1280 = photo1280;
+    }
+
+    public String getPreview() {
+        String textPreview = text.substring(0, 150);
+        int last = textPreview.lastIndexOf(" ");
+        return textPreview.substring(0, last) + "...ещё";
+    }
+
+    public Link getLink(TextView textView) {
+        Link link = new Link("...ещё")
+                .setTextColor(Color.BLACK)
+                .setUnderlined(false)
+                .setBold(true)
+                .setOnClickListener(new Link.OnClickListener() {
+                    @Override
+                    public void onClick(@NotNull String s) {
+                        textView.setMaxLines(100);
+                        textView.setText(text);
+                    }
+                });
+        return link;
     }
 
     public int getIdPost() {
