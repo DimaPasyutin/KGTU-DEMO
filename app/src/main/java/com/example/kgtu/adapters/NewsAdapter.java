@@ -2,24 +2,25 @@ package com.example.kgtu.adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.HorizontalScrollView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.kgtu.R;
 import com.example.kgtu.data.pojo.Post;
-import com.example.kgtu.ui.news.NewsFragment;
+import com.klinker.android.link_builder.Link;
+import com.klinker.android.link_builder.LinkBuilder;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,14 +69,28 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
     @Override
     public void onBindViewHolder(@NonNull NewsViewHolder holder, int position) {
 
-        if (posts.size() >= 1 && position == posts.size() - 5 && onReachEndListener != null) {
+        Post post = posts.get(position);
+
+        // Обновление списка постов
+        if (posts.size() >= 5 && position == posts.size() - 3 && onReachEndListener != null) {
             onReachEndListener.onReachEnd(++counter);
         }
 
-        Post post = posts.get(position);
-        holder.textViewArticle.setText(post.getText());
+        //Работа с размером текста
+        if(post.getText().length() > 150) {
+            holder.textViewArticle.setText(post.getPreview());
+            LinkBuilder.on(holder.textViewArticle).addLink(post.getLink(holder.textViewArticle)).build();
+        } else {
+            holder.textViewArticle.setText(post.getText());
+        }
+
+        // Устанавливаем дату
         holder.textViewDate.setText(post.getDate());
+
+        // Устанавливаем ViewPager
         setItemRecycler(holder.viewPager2Photos, post.getPhoto1280());
+
+        // Создаю метки переключения между фото
         if(post.getPhoto1280().size() > 1) {
             holder.setDots(new TextView[post.getPhoto1280().size()]);
             holder.setIndicators();
@@ -99,6 +114,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         } else if (post.getPhoto1280().isEmpty()){
             holder.layout.setVisibility(LinearLayout.INVISIBLE);
         }
+
     }
 
     @Override

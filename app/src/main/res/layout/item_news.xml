@@ -72,15 +72,16 @@
 
         <TextView
             android:id="@+id/textViewArticle"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="16sp"
             android:padding="8dp"
+            android:autoLink="all"
+            android:elegantTextHeight="true"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/dots_container" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
