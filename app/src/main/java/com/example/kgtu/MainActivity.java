@@ -4,16 +4,20 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.kgtu.data.pojo.DaysBeforeExams;
 import com.example.kgtu.data.pojo.Example;
 import com.example.kgtu.firebase.MyFirebaseDatabase;
+import com.example.kgtu.ui.timetable.TimetableFragment;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.gson.internal.bind.DateTypeAdapter;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
@@ -60,16 +64,25 @@ public class MainActivity extends AppCompatActivity {
         textViewDate = findViewById(R.id.textViewDayBeforeExams);
         myFirebaseDatabase = new MyFirebaseDatabase(getApplication());
 //        myFirebaseDatabase.LoadDate();
-        myFirebaseDatabase.getDaysBeforeExamsMutableLiveData().observe(this, new Observer<DaysBeforeExams>() {
-            @Override
-            public void onChanged(DaysBeforeExams daysBeforeExams) {
-                if(daysBeforeExams != null) {
+//        textViewDate.setText(daysBeforeExams.getWish());
+//        myFirebaseDatabase.getDaysBeforeExamsMutableLiveData().observe(this, new Observer<DaysBeforeExams>() {
+//            @Override
+//            public void onChanged(DaysBeforeExams daysBeforeExams) {
+//                if(daysBeforeExams != null) {
 //                    textViewDate.setText(daysBeforeExams.getWish());
-                }
-            }
-        });
+//                }
+//            }
+//        });
     }
 
+    @Override
+    public void onBackPressed() {
+
+        if (TimetableFragment.goBack())
+            Toast.makeText(this, "Done", Toast.LENGTH_SHORT);
+        else
+        super.onBackPressed();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

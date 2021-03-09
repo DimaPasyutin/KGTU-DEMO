@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,21 +26,27 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 import io.reactivex.Single;
+import io.reactivex.SingleEmitter;
 import io.reactivex.SingleObserver;
+import io.reactivex.SingleOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
 
 public class MyFirebaseDatabase extends AndroidViewModel {
 
-     private FirebaseFirestore dataBase;
+    private FirebaseFirestore dataBase;
     private MutableLiveData<DaysBeforeExams> daysBeforeExamsMutableLiveData;
+    private Map<String, Integer> time;
+    private Map<String, String> wish;
 
     public MyFirebaseDatabase(@NonNull Application application) {
         super(application);
@@ -52,6 +59,7 @@ public class MyFirebaseDatabase extends AndroidViewModel {
     }
 
     public void LoadDate() {
+        Log.i("LoadDate", "started");
         dataSource()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -63,7 +71,7 @@ public class MyFirebaseDatabase extends AndroidViewModel {
 
                     @Override
                     public void onSuccess(@io.reactivex.annotations.NonNull DaysBeforeExams daysBeforeExams) {
-                        Log.i("YES", daysBeforeExams.getWish());
+                        Log.i("LoadDate", daysBeforeExams.getWish());
 //                        daysBeforeExamsMutableLiveData.setValue(daysBeforeExams);
                     }
 
@@ -75,23 +83,38 @@ public class MyFirebaseDatabase extends AndroidViewModel {
     }
 
     private Single<DaysBeforeExams> dataSource() {
-        DaysBeforeExams days = new DaysBeforeExams();
+
+        Log.i("LoadDate", "dataSource");
 
         return Single.create(emitter -> {
 
+
+            DaysBeforeExams days = new DaysBeforeExams();
             dataBase = FirebaseFirestore.getInstance();
             DocumentReference daysBeforeExams = dataBase.collection("newClass").document("firstTry");
 
             daysBeforeExams.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                 @Override
                 public void onSuccess(DocumentSnapshot documentSnapshot) {
-                    if(documentSnapshot != null) {
-                        emitter.onSuccess(Objects.requireNonNull(documentSnapshot.toObject(DaysBeforeExams.class)));
+                    if(documentSnapshot.exists()) {
+                        days.setWish(documentSnapshot.toObject(DaysBeforeExams.class).getWish());
+                        days.setTime(documentSnapshot.toObject(DaysBeforeExams.class).getTime());
+                        Toast.makeText(getApplication().getApplicationContext(), "Loading is done" + documentSnapshot.getString("wish"), Toast.LENGTH_SHORT);
+                        Log.i("LoadDate",  documentSnapshot.toObject(DaysBeforeExams.class).getWish());
+                        Log.i("LoadDate",  days.getWish());
+                        Log.i("LoadDate",  days.getTime()+"");
+
+                        emitter.onSuccess(days);
                     }
                 }
             });
 
         });
+
+//        return Single.create(emitter -> {
+//            Log.i("LoadDate", emitter.toString());
+//            emitter.onSuccess(days);
+//        });
     }
 
     public void setInfoInDatabase() {
