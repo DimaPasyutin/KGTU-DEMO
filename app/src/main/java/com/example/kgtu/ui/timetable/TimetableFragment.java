@@ -11,17 +11,22 @@ import android.webkit.WebViewClient;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.kgtu.R;
-import com.example.kgtu.ui.navigator.NavigatorViewModel;
 
 public class TimetableFragment extends Fragment {
 
-    private NavigatorViewModel navigatorViewModel;
     public static WebView web;
+    private TimetableViewModel timetableViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        timetableViewModel =
+                new ViewModelProvider(this).get(TimetableViewModel.class);
+        timetableViewModel.LoadLink();
+
         View root = inflater.inflate(R.layout.fragment_timetable, container, false);
         return root;
     }
@@ -33,10 +38,14 @@ public class TimetableFragment extends Fragment {
         web = (WebView) view.findViewById(R.id.webView);
         WebSettings ws = web.getSettings();
         ws.setJavaScriptEnabled(true);
-        web.loadUrl("https://i-klgtu.ru/");
-        web.setWebViewClient(new WebViewClient());
 
-
+        timetableViewModel.getLinkLiveData().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String link) {
+                web.loadUrl(link);
+                web.setWebViewClient(new WebViewClient());
+            }
+        });
     }
 
     public static boolean goBack() {

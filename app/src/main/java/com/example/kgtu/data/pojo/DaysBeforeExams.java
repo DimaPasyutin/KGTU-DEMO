@@ -2,26 +2,26 @@ package com.example.kgtu.data.pojo;
 
 import androidx.annotation.NonNull;
 
-import rx.Single;
+import com.google.firebase.Timestamp;
 
 public class DaysBeforeExams {
 
-    private Integer time;
+    private Timestamp time;
     private  String wish;
 
     public DaysBeforeExams() {
     }
 
-    public DaysBeforeExams(Integer time, String wish) {
+    public DaysBeforeExams(Timestamp time, String wish) {
         this.time = time;
         this.wish = wish;
     }
 
-    public Integer getTime() {
-        return time;
+    public Timestamp getTime() {
+        return new Timestamp(time.getSeconds() - System.currentTimeMillis() / 1000, 0);
     }
 
-    public void setTime(Integer time) {
+    public void setTime(Timestamp time) {
         this.time = time;
     }
 
