@@ -5,8 +5,8 @@
     <string name="nav_header_title">До начала сессии осталось</string>
     <string name="nav_header_subtitle">30 дней</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">КГТУ</string>
-    <string name="action_settings1">Другое</string>
+    <string name="action_settings">Основное расписание</string>
+    <string name="action_settings1">Сохранённое расписание</string>
 
     <string name="menu_news">Новости</string>
     <string name="menu_navigator">Навигатор</string>

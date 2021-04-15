@@ -29,10 +29,10 @@ public class NewsFragment extends Fragment {
     private NewsViewModel newsViewModel;
     private RecyclerView recyclerViewNews;
     private NewsAdapter newsAdapter;
-    private long countStart = 30;
+    private long countStart = 50;
     private List<Post> generalListPost;
     private List<Post> betweenListPost;
-    private static long userId = 39135494;
+    private static long userId =  39135494;
 //    private long userId = 31547740;
 
     public View onCreateView(@NonNull LayoutInflater inflater,

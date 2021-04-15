@@ -2,7 +2,6 @@ package com.example.kgtu;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
 
@@ -19,7 +18,6 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.kgtu.data.pojo.DaysBeforeExams;
 import com.example.kgtu.firebase.MyFirebaseDatabase;
 import com.example.kgtu.ui.timetable.TimetableFragment;
-import com.example.kgtu.ui.timetable.TimetableViewModel;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -41,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_timetable)
+                R.id.nav_home,R.id.nav_slideshow , R.id.nav_gallery, R.id.nav_timetable)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -58,8 +56,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onChanged(DaysBeforeExams daysBeforeExams) {
                 if (daysBeforeExams != null) {
-                    String wish = String.format("%s или %s дней", daysBeforeExams.getWish(), daysBeforeExams.getTime().getSeconds() / 86_400 );
-                    textViewDate.setText(wish);
+//                    String wish = String.format("%s или %s дней", daysBeforeExams.getWish(), daysBeforeExams.getTime().getSeconds() / 86_400 );
+                    textViewDate.setText(daysBeforeExams.getWish());
                     Log.i("Date", ""+daysBeforeExams.getTime().getSeconds() / 86_400);
                 }
             }
@@ -76,12 +74,12 @@ public class MainActivity extends AppCompatActivity {
             super.onBackPressed();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.main, menu);
+//        return true;
+//    }
 
     @Override
     public boolean onSupportNavigateUp() {

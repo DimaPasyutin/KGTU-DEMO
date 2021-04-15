@@ -146,7 +146,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
             for (int i = 0; i < dots.length; i++) {
                 dots[i] = new TextView(itemView.getContext());
                 dots[i].setText(Html.fromHtml("&#9679;"));
-                dots[i].setTextSize(18);
+                dots[i].setTextSize(12);
                 layout.addView(dots[i]);
             }
 

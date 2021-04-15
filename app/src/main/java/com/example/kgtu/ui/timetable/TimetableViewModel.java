@@ -33,6 +33,10 @@ public class TimetableViewModel extends AndroidViewModel {
         return linkLiveData;
     }
 
+    public void setLinkLiveData(MutableLiveData<String> linkLiveData) {
+        this.linkLiveData = linkLiveData;
+    }
+
     public void LoadLink() {
         dataSourceForLink()
                 .subscribeOn(Schedulers.io())
@@ -73,5 +77,7 @@ public class TimetableViewModel extends AndroidViewModel {
         });
 
     }
+
+
 
 }

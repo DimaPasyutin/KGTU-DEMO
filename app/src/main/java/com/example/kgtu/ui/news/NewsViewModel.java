@@ -116,7 +116,7 @@ public class NewsViewModel extends AndroidViewModel {
                     if (attachments != null && attachments.size() > 0) {
                         for(Attachment attachment: attachments) {
                             if (attachment.getPhoto() != null  && attachment.getType().equals("photo")) {
-                                photo.add(attachment.getPhoto().getPhoto1280());
+                                photo.add(attachment.getPhoto().getPhoto807());
                             }
                         }
                     }
