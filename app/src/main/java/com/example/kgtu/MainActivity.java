@@ -1,5 +1,6 @@
 package com.example.kgtu;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,6 +18,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.kgtu.data.pojo.DaysBeforeExams;
 import com.example.kgtu.firebase.MyFirebaseDatabase;
+import com.example.kgtu.firebase.MyFirebaseMessagingService;
 import com.example.kgtu.ui.timetable.TimetableFragment;
 import com.google.android.material.navigation.NavigationView;
 
@@ -62,6 +64,10 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        // PushFirebase
+        Intent intentBackgroundService = new Intent(this, MyFirebaseMessagingService.class);
+        startService(intentBackgroundService);
 
     }
 
