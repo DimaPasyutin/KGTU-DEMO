@@ -49,7 +49,7 @@ public class TimetableViewModel extends AndroidViewModel {
 
                     @Override
                     public void onSuccess(@io.reactivex.annotations.NonNull String link) {
-                        linkLiveData.setValue(link);
+                        linkLiveData.postValue(link);
                     }
 
                     @Override

@@ -10,6 +10,8 @@
 
     <string name="menu_news">Новости</string>
     <string name="menu_navigator">Навигатор</string>
-    <string name="menu_podcasts">Подкасты</string>
+    <string name="menu_deanary">Деканаты</string>
     <string name="menu_table_time">Расписание</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
